@@ -144,6 +144,7 @@ impl StructPayloadIndex {
         }
         if !is_loaded {
             debug!("Index for `{field}` was not loaded. Building...");
+            debug_assert!(false, "Index should not need to be loaded during testing");
             // todo(ivan): decide what to do with indexes, which were not loaded
             indexes = self.build_field_indexes(field, payload_schema)?;
         }
@@ -665,6 +666,10 @@ impl PayloadIndex for StructPayloadIndex {
                         // Still we want to log this event, for potential debugging.
                         log::warn!(
                             "Flush: RocksDB cf_handle error: Cannot find column family {name}. Assume index is removed.",
+                        );
+                        debug_assert!(
+                            false,
+                            "Missing column family should not happen during testing"
                         );
                     }
                     Err(err) => {
