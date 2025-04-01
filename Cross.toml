@@ -1,0 +1,2 @@
+[target.aarch64-linux-android]
+docker_extra_args = ["-v", "/home/unistorm10/.cargo-cross-build:/target"]
